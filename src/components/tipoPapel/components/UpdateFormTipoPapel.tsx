@@ -79,9 +79,7 @@ export function UpdateFormTipoPapel({id, onClose}: UpdateTipoPapelProps) {
             form.reset({
                 nombre: tipoPapelData.nombre,
                 gramaje: tipoPapelData.gramaje,
-                unidad_paquete: tipoPapelData.unidad_paquete,
-                is_certificado: tipoPapelData.is_certificado,
-                is_reciclable: tipoPapelData.is_reciclable,
+                unidad_paquete: tipoPapelData.unidad_paquete ?? "",
                 porcentaje_reciclado: tipoPapelData.porcentaje_reciclado ?? 0,
                 nombre_certificado: tipoPapelData.nombre_certificado ?? "",
             });
@@ -95,12 +93,12 @@ export function UpdateFormTipoPapel({id, onClose}: UpdateTipoPapelProps) {
     const onSubmit = async (data: z.infer<typeof TipoPapel>) => {
         const tipoPapelRequest: TipoPapelRequest = {
             nombre: data.nombre,
+            ancho: 1,
+            largo: 1,
             gramaje: data.gramaje,
             unidad_paquete: data.unidad_paquete,
-            is_certificado: data.is_certificado,
-            is_reciclable: data.is_reciclable,
-            porcentaje_reciclado: data.is_reciclable ? data.porcentaje_reciclado : 0,
-            nombre_certificado: data.is_certificado ? data.nombre_certificado : "",
+            porcentaje_reciclado:  data.porcentaje_reciclado ?? 0,
+            nombre_certificado:  data.nombre_certificado ?? "",
         };
         try {
             const response = await updateTipoPapel(id, tipoPapelRequest);
